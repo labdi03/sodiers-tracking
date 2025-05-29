@@ -1,14 +1,17 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 import tailwindcss from '@tailwindcss/vite'
+
+
 export default defineNuxtConfig({
-  compatibilityDate: '2025-05-15',
+  compatibilityDate: '2025-03-18',
+  ssr: true,
   devtools: { enabled: true },
-  experimental: {
-    renderJsonPayloads: false
-  },
-  ssr: false,
-  modules: ['@nuxt/icon', 'shadcn-nuxt'],
   css: ['~/assets/css/tailwind.css'],
+  modules: [
+    'shadcn-nuxt',
+  ],
+  clerk: {
+    skipServerMiddleware: true,
+  },
   vite: {
     plugins: [
       tailwindcss(),
@@ -24,5 +27,5 @@ export default defineNuxtConfig({
      * @default "./components/ui"
      */
     componentDir: './components/ui'
-  }
+  },
 })
