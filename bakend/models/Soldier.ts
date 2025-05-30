@@ -5,6 +5,7 @@ const SoldierSchema = new mongoose.Schema({
   name: String,
   age: Number,
   grade: String,
+  unit:String,
   bloodGroup: String,
 });
 
