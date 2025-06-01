@@ -8,6 +8,7 @@ const SoldierSchema = new mongoose_1.default.Schema({
     id: { type: String, required: true }, // Matches ESP32 ID
     name: String,
     age: Number,
+    unit:String,
     grade: String,
     bloodGroup: String,
 });
