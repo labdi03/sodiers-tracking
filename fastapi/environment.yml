@@ -1,0 +1,12 @@
+name: soldiers-tracking-api
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+      - fastapi==0.115.12
+      - uvicorn==0.32.1
+      - numpy>=1.26.0
+      - python-multipart==0.0.9
