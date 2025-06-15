@@ -85,7 +85,7 @@ const addRandomSoldier = () => {
   
   soldiers.value.push(soldier);
 };
-
+ 
 const moveSoldier = (soldier) => {
   const algiersCenter = [3.0588, 36.7538];
   const currentCoords = soldier.getGeometry().getCoordinates();
@@ -160,6 +160,36 @@ const stopSoldierMovement = () => {
     movementInterval.value = null;
   }
 };
+//ajouter un soldat bouger dynamiquement 
+const addRealSoldier = async () => {
+  try {
+    const gps = await $fetch('http://localhost:8000/api/last-gps') // adresse backend
+    const x = parseFloat(gps.lon)
+    const y = parseFloat(gps.lat)
+
+    const soldierOverlay = createSoldierOverlay([x, y])
+    map.value.addOverlay(soldierOverlay.overlay)
+    soldierOverlays.value.push(soldierOverlay)
+
+    const soldier = new Feature({
+      geometry: new Point([x, y]),
+      properties: {
+        id: soldierOverlay.id,
+        type: 'real',
+        nom: 'Dakich',
+        prenom: 'Zin',
+        grade: 'comandant',
+        unite: 'enpei',
+        status:'vivant',
+        position:{lat: y,  lon:x,},
+      }
+    })
+
+    soldiers.value.push(soldier)
+  } catch (error) {
+    console.error('Erreur lors de la récupération de la position GPS :', error)
+  }
+}
 
 onMounted(() => {
   map.value = new Map({
@@ -222,6 +252,13 @@ onUnmounted(() => {
         >
           Stop Movement
         </button>
+        <button
+          @click="addRealSoldier"
+          class="bg-purple-500 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-purple-600 transition-colors"
+          >
+          Add Real Soldier
+         </button>
+    
       </div>
     </div>
   </SidebarProvider>
